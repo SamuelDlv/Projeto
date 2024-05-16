@@ -1,0 +1,36 @@
+import os
+
+if os.path.exists("lista.txt"):
+    with open("lista.txt", "r") as file:
+        lista = file.read().splitlines()
+else:
+    lista = []
+
+while True:
+    action = input("Deseja adicionar ou remover um item da lista? (adicionar/remover/pronto): ")
+
+    if action.lower() == "adicionar":
+        while True:
+            item = input("Insira o item a ser adicionado (ou digite 'finalizar' para retornar a pergunta anterior): ")
+            if item.lower() == 'finalizar':
+                break
+            lista.append(item)
+            print(f"Item '{item}' adicionado à lista.")
+    elif action.lower() == "remover":
+        item = input("Digite o item a ser removido: ")
+        if item in lista:
+            lista.remove(item)
+            print(f"Item '{item}' removido da lista.")
+        else:
+            print(f"Item '{item}' não encontrado na lista.")
+    elif action.lower() == "pronto":
+        with open("lista.txt", "w") as file:
+            for item in lista:
+                file.write(item + "\n")
+        break
+    else:
+        print("Ação inválida. Por favor, tente novamente.")
+
+print("\n")
+print("Lista Pronta:", lista, "\n")
+print("Boas Compras")
